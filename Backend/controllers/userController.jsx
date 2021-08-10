@@ -1,7 +1,7 @@
 import User from "../models/user.js";
-import asyncErrors from "../middleWares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 
-const registerUser = asyncErrors(async (req, res) => {
+const registerUser = catchAsyncErrors(async (req, res) => {
   const { name, email, password } = req.body;
 
   const user = await User.create({
@@ -16,7 +16,7 @@ const registerUser = asyncErrors(async (req, res) => {
   });
 });
 
-const currentUser = asyncErrors(async (req, res) => {
+const currentUser = catchAsyncErrors(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   res.status(200).json({
@@ -25,7 +25,7 @@ const currentUser = asyncErrors(async (req, res) => {
   });
 });
 
-const userProfile = asyncErrors(async (req, res) => {
+const userProfile = catchAsyncErrors(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -42,7 +42,7 @@ const userProfile = asyncErrors(async (req, res) => {
   });
 });
 
-const allAdminUsers = asyncErrors(async (req, res) => {
+const allAdminUsers = catchAsyncErrors(async (req, res) => {
   const users = await User.find();
 
   res.status(200).json({
@@ -51,7 +51,7 @@ const allAdminUsers = asyncErrors(async (req, res) => {
   });
 });
 
-const getUserDetails = asyncErrors(async (req, res) => {
+const getUserDetails = catchAsyncErrors(async (req, res) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {
@@ -64,7 +64,7 @@ const getUserDetails = asyncErrors(async (req, res) => {
   });
 });
 
-const updateUser = asyncErrors(async (req, res) => {
+const updateUser = catchAsyncErrors(async (req, res) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -82,7 +82,7 @@ const updateUser = asyncErrors(async (req, res) => {
   });
 });
 
-const deleteUser = asyncErrors(async (req, res) => {
+const deleteUser = catchAsyncErrors(async (req, res) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {

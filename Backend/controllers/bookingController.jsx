@@ -1,14 +1,14 @@
 import Booking from "../models/booking";
 
 import ErrorHandler from "../errors/errorHandler";
-import asyncErrors from "../middleWares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 
 const moment = extendMoment(Moment);
 
-const newBooking = asyncErrors(async (req, res) => {
+const newBooking = catchAsyncErrors(async (req, res) => {
   const {
     room,
     checkInDate,
@@ -35,7 +35,7 @@ const newBooking = asyncErrors(async (req, res) => {
   });
 });
 
-const checkRoomBookingAvailability = asyncErrors(async (req, res) => {
+const checkRoomBookingAvailability = catchAsyncErrors(async (req, res) => {
   let { roomId, checkInDate, checkOutDate } = req.query;
 
   checkInDate = new Date(checkInDate);
@@ -71,7 +71,7 @@ const checkRoomBookingAvailability = asyncErrors(async (req, res) => {
   });
 });
 
-const checkBookedDatesOfRoom = asyncErrors(async (req, res) => {
+const checkBookedDatesOfRoom = catchAsyncErrors(async (req, res) => {
   const { roomId } = req.query;
 
   const bookings = await Booking.find({ room: roomId });
@@ -102,7 +102,7 @@ const checkBookedDatesOfRoom = asyncErrors(async (req, res) => {
   });
 });
 
-const myBookings = asyncErrors(async (req, res) => {
+const myBookings = catchAsyncErrors(async (req, res) => {
   const bookings = await Booking.find({ user: req.user._id })
     .populate({
       path: "room",
@@ -119,7 +119,7 @@ const myBookings = asyncErrors(async (req, res) => {
   });
 });
 
-const getBookingDetails = asyncErrors(async (req, res) => {
+const getBookingDetails = catchAsyncErrors(async (req, res) => {
   const booking = await Booking.findById(req.query.id)
     .populate({
       path: "room",
@@ -136,7 +136,7 @@ const getBookingDetails = asyncErrors(async (req, res) => {
   });
 });
 
-const allAdminBookings = asyncErrors(async (req, res) => {
+const allAdminBookings = catchAsyncErrors(async (req, res) => {
   const bookings = await Booking.find()
     .populate({
       path: "room",
@@ -153,7 +153,7 @@ const allAdminBookings = asyncErrors(async (req, res) => {
   });
 });
 
-const deleteBooking = asyncErrors(async (req, res, next) => {
+const deleteBooking = catchAsyncErrors(async (req, res, next) => {
   const booking = await Booking.findById(req.query.id);
 
   if (!booking) {

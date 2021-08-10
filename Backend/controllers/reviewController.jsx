@@ -1,8 +1,8 @@
 import Room from "../models/room";
-import asyncErrors from "../middleWares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 import Booking from "../models/booking";
 
-const createRoomReview = asyncErrors(async (req, res) => {
+const createRoomReview = catchAsyncErrors(async (req, res) => {
   const { rating, comment, roomId } = req.body;
 
   const review = {
@@ -41,7 +41,7 @@ const createRoomReview = asyncErrors(async (req, res) => {
   });
 });
 
-const checkReviewAvailability = asyncErrors(async (req, res) => {
+const checkReviewAvailability = catchAsyncErrors(async (req, res) => {
   const { roomId } = req.query;
 
   const bookings = await Booking.find({ user: req.user._id, room: roomId });
@@ -55,7 +55,7 @@ const checkReviewAvailability = asyncErrors(async (req, res) => {
   });
 });
 
-const getRoomReviews = asyncErrors(async (req, res) => {
+const getRoomReviews = catchAsyncErrors(async (req, res) => {
   const room = await Room.findById(req.query.id);
 
   res.status(200).json({
@@ -64,7 +64,7 @@ const getRoomReviews = asyncErrors(async (req, res) => {
   });
 });
 
-const deleteReview = asyncErrors(async (req, res) => {
+const deleteReview = catchAsyncErrors(async (req, res) => {
   const room = await Room.findById(req.query.roomId);
 
   const reviews = room.reviews.filter(

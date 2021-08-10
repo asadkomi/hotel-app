@@ -1,6 +1,6 @@
 import Room from "../models/room";
 import ErrorHandler from "../errors/errorHandler";
-import asyncErrors from "../middleWares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 import Utilities from "../utilities/utilities.jsx";
 import cloudinary from "cloudinary";
 
@@ -10,7 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const getAllRooms = asyncErrors(async (req, res, next) => {
+const getAllRooms = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 6;
   const roomsCount = await Room.countDocuments();
   const utilities = new Utilities(Room.find(), req.query).search().filter();
@@ -30,7 +30,7 @@ const getAllRooms = asyncErrors(async (req, res, next) => {
   });
 });
 
-const getOneRoom = asyncErrors(async (req, res, next) => {
+const getOneRoom = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id);
 
   if (!room) {
@@ -42,7 +42,7 @@ const getOneRoom = asyncErrors(async (req, res, next) => {
   });
 });
 
-const allAdminRooms = asyncErrors(async (req, res) => {
+const allAdminRooms = catchAsyncErrors(async (req, res) => {
   const rooms = await Room.find();
 
   res.status(200).json({
@@ -51,7 +51,7 @@ const allAdminRooms = asyncErrors(async (req, res) => {
   });
 });
 
-const newRoom = asyncErrors(async (req, res) => {
+const newRoom = catchAsyncErrors(async (req, res) => {
   const images = req.body.images;
 
   let imagesLinks = [];
@@ -78,7 +78,7 @@ const newRoom = asyncErrors(async (req, res) => {
   });
 });
 
-const updateRoom = asyncErrors(async (req, res) => {
+const updateRoom = catchAsyncErrors(async (req, res) => {
   let room = await Room.findById(req.query.id);
 
   if (!room) {
@@ -120,7 +120,7 @@ const updateRoom = asyncErrors(async (req, res) => {
   });
 });
 
-const deleteRoom = asyncErrors(async (req, res) => {
+const deleteRoom = catchAsyncErrors(async (req, res) => {
   const room = await Room.findById(req.query.id);
 
   if (!room) {

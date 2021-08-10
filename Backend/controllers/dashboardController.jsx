@@ -1,9 +1,9 @@
-import asyncErrors from "../middleWares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 import Room from "../models/room";
 import User from "../models/user.js";
 import Booking from "../models/booking";
 
-const getDashboard = asyncErrors(async (req, res, next) => {
+const getDashboard = catchAsyncErrors(async (req, res, next) => {
   const roomsCount = await Room.countDocuments();
   const usersCount = await User.countDocuments();
   const bookingsCount = await Booking.countDocuments();

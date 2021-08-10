@@ -3,12 +3,12 @@ import User from "../models/user";
 import Booking from "../models/booking";
 import getRawBody from "raw-body";
 
-import asyncErrors from "../middlewares/errors/asyncErrors";
+import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
 import absoluteUrl from "next-absolute-url";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const stripCheckoutSession = asyncErrors(async (req, res) => {
+const stripCheckoutSession = catchAsyncErrors(async (req, res) => {
   // Get room details
   const room = await Room.findById(req.query.roomId);
 
@@ -40,7 +40,7 @@ const stripCheckoutSession = asyncErrors(async (req, res) => {
 });
 
 // Create new booking after payment   =>   /api/webhook
-const webhookCheckout = asyncErrors(async (req, res) => {
+const webhookCheckout = catchAsyncErrors(async (req, res) => {
   if (req.method === "POST") {
     const rawBody = await getRawBody(req);
     const signature = req.headers["stripe-signature"];
