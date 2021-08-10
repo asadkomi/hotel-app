@@ -1,8 +1,8 @@
-import asyncErrors from "./errors/asyncErrors.jsx";
+import catchAsyncErrors from "./errors/catchAsyncErrors.jsx";
 import ErrorHandler from "../errors/errorHandler.jsx";
 import { getSession } from "next-auth/client";
 
-const isAuthenticatedUser = asyncErrors(async (req, res, next) => {
+const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const session = await getSession({ req });
 
   if (!session) {
