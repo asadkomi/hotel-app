@@ -29,6 +29,7 @@ export default function NavMenu() {
 
   const logoutClickHandler = () => {
     signOut();
+    router.push("/");
   };
 
   const menuCloseHandler = (e, redirect) => {
@@ -47,7 +48,7 @@ export default function NavMenu() {
               className={style.navbarButton}
               aria-controls="simple-menu"
               aria-haspopup="true"
-              onClick={loginClickHandler}
+              // onClick={loginClickHandler}
             >
               <AccountCircleIcon />
               <span style={{ paddingLeft: "10px" }}> {user.name}</span>
