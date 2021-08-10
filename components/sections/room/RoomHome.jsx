@@ -1,145 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { clearErrors } from "../../../redux/actions/roomActions.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import RoomItem from "./RoomItem.jsx";
+import { toast } from "react-toastify";
+import { Typography } from "@material-ui/core";
 
 const RoomHome = () => {
+  const { rooms, error, resPerPage, roomsCount, filteredRoomCount } =
+    useSelector((state) => state.allRooms);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  let { location } = router.query;
+
+  useEffect(() => {
+    toast.error(error);
+    dispatch(clearErrors());
+  }, []);
+
   return (
     <section className="w-100">
       <div className="container">
-        <div className="row pt-5 pb-5">
-          <div className="col-md-3 pb-3">
-            <div className="card  shadow-lg ">
-              <img className="card-img-top" src="/images/hero.jpg" alt="ro" />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                  <Link href="#">
-                    <a>Room name</a>
-                  </Link>
-                </h5>
-
-                <div className="ratings mt-auto mb-3">
-                  <p className="card-text">
-                    <b>$130</b> / night
-                  </p>
-
-                  <div className="rating-outer">
-                    <div
-                      className="rating-inner"
-                      // style={{ width: `${(room.ratings / 5) * 100}%` }}
-                    ></div>
-                  </div>
-                  <span id="no_of_reviews">5 Reviews</span>
-                </div>
-
-                <button className="btn btn-dark btn-raised shadow my-button w-xs mt-3">
-                  <Link href="/roomDetails">View Details</Link>
-                </button>
-              </div>
+        <div className="pt-4 stays-heading">
+          <Typography variant="h2">
+            {location ? `Rooms in ${location}` : "Explore"}
+          </Typography>
+        </div>
+        <div className="row pt-2 pb-2">
+          {rooms && rooms.length === 0 ? (
+            <div className="alert aleart-danger">
+              <Typography>No Room found</Typography>
             </div>
-          </div>
-          <div className="col-md-3 pb-3">
-            <div className="card  shadow-lg ">
-              <img
-                className="card-img-top mx-auto"
-                src="/images/hero.jpg"
-                alt="ro"
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                  <Link href="#">
-                    <a>Room name</a>
-                  </Link>
-                </h5>
-
-                <div className="ratings mt-auto mb-3">
-                  <p className="card-text">
-                    <b>$130</b> / night
-                  </p>
-
-                  <div className="rating-outer">
-                    <div
-                      className="rating-inner"
-                      // style={{ width: `${(room.ratings / 5) * 100}%` }}
-                    ></div>
-                  </div>
-                  <span id="no_of_reviews">5 Reviews</span>
-                </div>
-
-                <button className="btn btn-dark btn-raised shadow my-button w-xs mt-3">
-                  <Link href="#">View Details</Link>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 pb-3">
-            <div className="card  shadow-lg">
-              <img
-                className="card-img-top mx-auto"
-                src="/images/hero.jpg"
-                alt="ro"
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                  <Link href="#">
-                    <a>Room name</a>
-                  </Link>
-                </h5>
-
-                <div className="ratings mt-auto mb-3">
-                  <p className="card-text">
-                    <b>$130</b> / night
-                  </p>
-
-                  <div className="rating-outer">
-                    <div
-                      className="rating-inner"
-                      // style={{ width: `${(room.ratings / 5) * 100}%` }}
-                    ></div>
-                  </div>
-                  <span id="no_of_reviews">5 Reviews</span>
-                </div>
-
-                <button className="btn btn-dark btn-raised shadow my-button w-xs mt-3">
-                  <Link href="#">View Details</Link>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3 pb-3">
-            <div className="card  shadow-lg">
-              <img
-                className="card-img-top mx-auto"
-                src="/images/hero.jpg"
-                alt="ro"
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                  <Link href="#">
-                    <a>Room name</a>
-                  </Link>
-                </h5>
-
-                <div className="ratings mt-auto mb-3">
-                  <p className="card-text">
-                    <b>$130</b> / night
-                  </p>
-
-                  <div className="rating-outer">
-                    <div
-                      className="rating-inner"
-                      // style={{ width: `${(room.ratings / 5) * 100}%` }}
-                    ></div>
-                  </div>
-                  <span id="no_of_reviews">5 Reviews</span>
-                </div>
-
-                <a className="btn btn-dark btn-raised shadow my-button w-xs mt-3">
-                  <Link href="#">View Details</Link>
-                </a>
-              </div>
-            </div>
-          </div>
+          ) : (
+            rooms.map((room) => <RoomItem key={room._id} room={room} />)
+          )}
         </div>
       </div>
     </section>

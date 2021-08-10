@@ -1,48 +1,116 @@
 import React from "react";
+import WifiIcon from "@material-ui/icons/Wifi";
+import TvIcon from "@material-ui/icons/Tv";
+import PetsIcon from "@material-ui/icons/Pets";
+import AcUnitIcon from "@material-ui/icons/AcUnit";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import { Typography, Grid } from "@material-ui/core";
 
-const RoomAmenities = () => {
+const RoomAmenities = ({ room }) => {
   return (
     <div className="features mt-5">
-      <h3 className="mb-4">Features</h3>
-      <div className="row">
-        <div className="col-md">
-          <div className="room-feature">
-            <i className="fa fa-cog fa-fw fa-users" aria-hidden="true"></i>
-            <p>6 Guests</p>
+      <Typography variant="h4" className="mb-4">
+        Amenities
+      </Typography>
+
+      <Grid container spacing={1}>
+        <Grid item md={6} xs={6}>
+          <div className="room-feature pb-2">
+            <Typography>
+              <i className="fa fa-cog fa-fw fa-users" aria-hidden="true"></i>
+            </Typography>
+            <Typography>{room.guests}</Typography>
           </div>
 
-          <div className="room-feature">
-            <i className="fa fa-cog fa-fw fa-bed" aria-hidden="true"></i>
-            <p>3 Beds</p>
+          <div className="room-feature pb-2">
+            <Typography>
+              <i className="fa fa-cog fa-fw fa-bed" aria-hidden="true"></i>
+            </Typography>
+            <Typography>{room.beds}</Typography>
           </div>
 
-          <div className="room-feature">
-            <i className="fa fa-check text-success" aria-hidden="true"></i>
-            <p>Breakfast</p>
+          <div className="room-feature pb-2">
+            <Typography>
+              <WifiIcon />
+            </Typography>
+            <Typography>
+              <i
+                className={
+                  room.wifi
+                    ? "fa fa-check text-success"
+                    : "fa fa-times text-danger"
+                }
+                aria-hidden="true"
+              ></i>
+            </Typography>
           </div>
 
-          <div className="room-feature">
-            <i className="fa fa-check text-success" aria-hidden="true"></i>
-            <p>Internet</p>
+          <div className="room-feature pb-2">
+            <Typography>
+              <TvIcon />
+            </Typography>
+            <Typography>
+              <i
+                className={
+                  room.tv
+                    ? "fa fa-check text-success"
+                    : "fa fa-times text-danger"
+                }
+                aria-hidden="true"
+              ></i>
+            </Typography>
           </div>
-        </div>
-        <div className="col-md">
-          <div className="room-feature">
-            <i className="fa fa-check text-success" aria-hidden="true"></i>
-            <p>Air Condition</p>
+        </Grid>
+        <Grid item md={6} xs={6}>
+          <div className="room-feature pb-2">
+            <Typography>
+              <AcUnitIcon />
+            </Typography>
+            <Typography>
+              <i
+                className={
+                  room.conditioning
+                    ? "fa fa-check text-success"
+                    : "fa fa-times text-danger"
+                }
+                aria-hidden="true"
+              ></i>
+            </Typography>
           </div>
 
-          <div className="room-feature">
-            <i className="fa fa-check text-danger" aria-hidden="true"></i>
-            <p>Pet Allowed</p>
+          <div className="room-feature pb-2">
+            <Typography>
+              <PetsIcon />
+            </Typography>
+            <Typography>
+              <i
+                className={
+                  room.pets
+                    ? "fa fa-check text-success"
+                    : "fa fa-times text-danger"
+                }
+                aria-hidden="true"
+              ></i>
+            </Typography>
           </div>
 
-          <div className="room-feature">
-            <i className="fa fa-check text-success" aria-hidden="true"></i>
-            <p>Room Cleaning</p>
+          <div className="room-feature pb-2">
+            <Typography>
+              <WbSunnyIcon />
+            </Typography>
+            <Typography>
+              <i
+                className={
+                  room.heating
+                    ? "fa fa-check text-success"
+                    : "fa fa-times text-danger"
+                }
+                aria-hidden="true"
+              ></i>
+            </Typography>
           </div>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

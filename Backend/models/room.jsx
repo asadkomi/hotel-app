@@ -60,9 +60,9 @@ const room = new mongoose.Schema({
   },
   images: [
     {
-      id: {
+      public_id: {
         type: String,
-        required: true,
+        required: false,
       },
       url: {
         type: String,

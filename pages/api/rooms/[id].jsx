@@ -5,12 +5,17 @@ import {
   updateRoom,
   deleteRoom,
 } from "../../../Backend/controllers/roomController.jsx";
+import onError from "../../../Backend/middleWares/errors/error";
+import {
+  isAuthenticatedUser,
+  authorizeRoles,
+} from "../../../Backend/middleWares/auth.jsx";
 
-const handler = nextConnect();
+const handler = nextConnect({ onError });
 dbConnect();
 
 handler.get(getOneRoom);
-handler.put(updateRoom);
-handler.delete(deleteRoom);
+handler.use(isAuthenticatedUser, authorizeRoles("admin")).put(updateRoom);
+handler.use(isAuthenticatedUser, authorizeRoles("admin")).delete(deleteRoom);
 
 export default handler;

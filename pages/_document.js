@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
+import React from "react";
+import { ServerStyleSheets } from "@material-ui/core";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
+  // static async getInitialProps(ctx) {
+  //   const initialProps = await Document.getInitialProps(ctx);
+  //   return { ...initialProps };
+  // }
 
   render() {
     return (
@@ -28,6 +30,11 @@ class MyDocument extends Document {
           <NextScript />
 
           <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossOrigin="anonymous"
+          ></script>
+          <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
             integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
             crossOrigin="anonymous"
@@ -42,5 +49,24 @@ class MyDocument extends Document {
     );
   }
 }
+
+MyDocument.getInitialProps = async (ctx) => {
+  const sheets = new ServerStyleSheets();
+  const original = ctx.renderPage;
+  ctx.renderPage = () => {
+    return original({
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+    });
+  };
+
+  const initialProps = await Document.getInitialProps(ctx);
+  return {
+    ...initialProps,
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
+  };
+};
 
 export default MyDocument;

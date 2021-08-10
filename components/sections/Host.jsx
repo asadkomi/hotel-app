@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 const Host = () => {
   return (
@@ -15,19 +17,18 @@ const Host = () => {
       >
         <div className="row align-items-center justify-content-between">
           <div className="col-md p-5 text-dark">
-            <p>
+            <Typography>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Est,
               dolor inventore! Deleniti recusandae deserunt, iste magnam commodi
               hic eligendi pariatur! Lorem ipsum dolor sit amet consectetur
               adipisicing elit. Est, dolor inventore! Deleniti recusandae
               deserunt, iste magnam commodi hic eligendi pariatur!
-            </p>
-            <a
-              href="#"
-              className="btn btn-dark btn-raised shadow my-button w-xs mt-3"
-            >
-              Hosting
-            </a>
+            </Typography>
+            <div className="pt-4">
+              <Button color="primary" variant="contained">
+                Hosting
+              </Button>
+            </div>
           </div>
           <div className="col-md">
             {/* <img src="/images/hookah-bar.svg" className="img-fluid" alt="" /> */}

@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
+import { Typography } from "@material-ui/core";
 import React from "react";
 import Search from "./Search.jsx";
+import { Button } from "@material-ui/core";
 
 const Hero = () => {
   return (
     <section
-      className="pt-5 pb-5 w-100 about"
+      className="pb-5 w-100 about"
       id="about"
       style={{
         backgroundImage: "url('/images/hero.jpg')",
@@ -15,26 +17,22 @@ const Hero = () => {
       }}
     >
       <div className="container">
-        <div className="pt-5 text-center">
+        <div className=" text-center">
           <ul className="secondary-nav">
             <li className="secondary-item">
               <a href="#home" className="secondary-link">
-                Home
+                <Typography>Home </Typography>
               </a>
             </li>
             <li className="secondary-item">
               <a href="#about" className="secondary-link">
-                About
+                <Typography>About</Typography>
               </a>
             </li>
-            <li className="secondary-item">
-              <a href="#menu" className="secondary-link">
-                Menu
-              </a>
-            </li>
+
             <li className="secondary-item">
               <a href="#event" className="secondary-link">
-                Events
+                <Typography>Events</Typography>
               </a>
             </li>
           </ul>
@@ -45,14 +43,11 @@ const Hero = () => {
             <Search />
           </div>
           <div className="col-md p-5 text-dark">
-            <h1>Are you looking for a room ?</h1>
+            <Typography variant="h1">Are you looking for a room ?</Typography>
 
-            <a
-              href="#"
-              className="btn btn-dark btn-raised shadow my-button w-xs mt-3"
-            >
+            <Button color="primary" variant="contained">
               Explore
-            </a>
+            </Button>
           </div>
         </div>
       </div>

@@ -52,6 +52,9 @@ a {
 /* Explore */
 
 /* Footer */
+.mainFooter {
+  margin-top: 290px;
+}
 .footer-links {
   text-align: center;
   left: 0;
@@ -89,107 +92,20 @@ a {
 
 /* Loader */
 
-.center-loader {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 150px 0;
-}
-
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #e61e4d;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
-
-/* Button Loader */
-.lds-dual-ring {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 /* Login & Register */
 
-.wrapper {
+/* .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
 
   font-weight: 700;
-}
+} */
 
-.wrapper form {
+/* .wrapper form {
   padding: 2.5rem 3rem;
-}
+} */
 
 .wrapper form .btn,
 .booking-btn,
@@ -346,16 +262,25 @@ nav {
 /* Host */
 
 /* Ratings */
+.rating-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
+.main-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
 
 .rating-outer {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
-  color: #e61e4d;
+  color: #ffb400;
+  font-size: 24px;
 }
-
-.rating-outer::before {
-  content: "\f006 \f006 \f006 \f006 \f006";
+.main-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  color: #ffb400;
 }
 
 .rating-inner {
@@ -367,9 +292,22 @@ nav {
   width: 0;
 }
 
+.main-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
 .rating-inner::before {
   content: "\f005 \f005 \f005 \f005 \f005";
-  color: #e61e4d;
+  color: #ffb400;
+}
+.main-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #ffb400;
 }
 
 /* Room Details Page */
@@ -383,8 +321,10 @@ nav {
 }
 
 .booking-card {
-  border: 1px solid #e3e3e3;
-  border-radius: 20px;
+  /* border: 1px solid #e3e3e3; */
+
+  width: 80%;
+  border-radius: 5px;
   padding: 5px 10px;
 }
 
@@ -418,7 +358,7 @@ nav {
 .star {
   display: inline;
   list-style: none;
-  font-size: 3rem;
+  font-size: 2rem;
   padding-left: 0.9rem;
   color: #e3e3e3;
 }
@@ -582,9 +522,9 @@ i {
 }
 
 /* LOGIN */
-.login {
+/* .login {
   position: relative;
-}
+} */
 .back-link {
   position: absolute;
   top: 20px;
