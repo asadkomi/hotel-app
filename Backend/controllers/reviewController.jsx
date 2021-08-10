@@ -1,8 +1,6 @@
 import Room from "../models/room";
-import ErrorHandler from "../errors/errorHandler";
 import asyncErrors from "../middleWares/errors/asyncErrors";
-
-import Booking from "../models/booking.jsx";
+import Booking from "../models/booking";
 
 const createRoomReview = asyncErrors(async (req, res) => {
   const { rating, comment, roomId } = req.body;

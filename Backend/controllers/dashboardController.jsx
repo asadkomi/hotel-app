@@ -1,9 +1,7 @@
-import ErrorHandler from "../errors/errorHandler";
 import asyncErrors from "../middleWares/errors/asyncErrors";
-import Utilities from "../utilities/utilities.jsx";
 import Room from "../models/room";
 import User from "../models/user.js";
-import Booking from "../models/booking.jsx";
+import Booking from "../models/booking";
 
 const getDashboard = asyncErrors(async (req, res, next) => {
   const roomsCount = await Room.countDocuments();

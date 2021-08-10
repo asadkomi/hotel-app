@@ -1,7 +1,7 @@
-import Booking from "../models/booking.jsx";
+import Booking from "../models/booking";
 
-import ErrorHandler from "../errors/errorHandler.jsx";
-import asyncErrors from "../middleWares/errors/asyncErrors.jsx";
+import ErrorHandler from "../errors/errorHandler";
+import asyncErrors from "../middleWares/errors/asyncErrors";
 
 import Moment from "moment";
 import { extendMoment } from "moment-range";

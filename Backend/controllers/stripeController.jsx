@@ -1,9 +1,9 @@
-import Room from "../models/room.jsx";
+import Room from "../models/room";
 import User from "../models/user";
 import Booking from "../models/booking";
 import getRawBody from "raw-body";
 
-import asyncErrors from "../middlewares/errors/asyncErrors.jsx";
+import asyncErrors from "../middlewares/errors/asyncErrors";
 import absoluteUrl from "next-absolute-url";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
