@@ -48,7 +48,11 @@ export default function NavMenu() {
               className={style.navbarButton}
               aria-controls="simple-menu"
               aria-haspopup="true"
+<<<<<<< HEAD
               // onClick={loginClickHandler}
+=======
+              onClick={loginClickHandler}
+>>>>>>> stripe payment gateways fixed
             >
               <AccountCircleIcon />
               <span style={{ paddingLeft: "10px" }}> {user.name}</span>

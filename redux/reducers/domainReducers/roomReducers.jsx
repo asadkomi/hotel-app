@@ -31,8 +31,13 @@ export const allRoomsReducer = (state = { rooms: [] }, action) => {
     case ALL_ROOMS_SUCCESS:
       return {
         roomsCount: action.payload.roomsCount,
+<<<<<<< HEAD
         // resPerPage: action.payload.resPerPage,
         // filteredRoomsCount: action.payload.filteredRoomsCount,
+=======
+        resultPerPage: action.payload.resultPerPage,
+        filterdRoom: action.payload.filterdRoom,
+>>>>>>> stripe payment gateways fixed
         rooms: action.payload.rooms,
       };
 

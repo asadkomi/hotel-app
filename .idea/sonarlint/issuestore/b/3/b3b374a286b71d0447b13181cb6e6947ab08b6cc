@@ -1,0 +1,7 @@
+
+Wjavascript:S1481";Remove the declaration of the unused 'roomsCount' variable.( Â¸ë
+Tjavascript:S1854"8Remove this useless assignment to variable "roomsCount".( Â¸ë
+Wjavascript:S1481";Remove the declaration of the unused 'resPerPage' variable.( Â¸ë
+[javascript:S1854"?Remove this useless assignment to variable "filteredRoomCount".( Â¸ë
+^javascript:S1481"BRemove the declaration of the unused 'filteredRoomCount' variable.( Â¸ë
+Tjavascript:S1854"8Remove this useless assignment to variable "resPerPage".( Â¸ë

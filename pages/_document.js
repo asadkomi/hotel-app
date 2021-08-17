@@ -3,6 +3,9 @@ import React from "react";
 import { ServerStyleSheets } from "@material-ui/core";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
+import dotenv from "dotenv-safe";
+dotenv.config();
+
 class MyDocument extends Document {
   // static async getInitialProps(ctx) {
   //   const initialProps = await Document.getInitialProps(ctx);

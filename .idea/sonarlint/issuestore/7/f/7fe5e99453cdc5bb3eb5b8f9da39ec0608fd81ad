@@ -1,0 +1,20 @@
+
+Ljavascript:S1128"1Remove this unused import of 'AccountCircleIcon'.(­ì¹x
+Rjavascript:S1128	"1Remove this unused import of 'ArrowDropDownIcon'.(†’ ™úÿÿÿÿ
+Zjavascript:S1854&"?Remove this useless assignment to variable "loginClickHandler".(‚»_
+_javascript:S1481*"CRemove the declaration of the unused 'logoutClickHandler' variable.(ÃÔ·¦
+Bjavascript:S1128"&Remove this unused import of 'Switch'.(ºì“š
+?javascript:S1128"$Remove this unused import of 'Menu'.(©›w
+]javascript:S1481&"BRemove the declaration of the unused 'loginClickHandler' variable.(‚»_
+Fjavascript:S1128"%Remove this unused import of 'Badge'.(Î¾áùÿÿÿÿ
+\javascript:S1854*"@Remove this useless assignment to variable "logoutClickHandler".(ÃÔ·¦
+Ujavascript:S1481"9Remove the declaration of the unused 'anchorEl' variable.(öúò†
+Ijavascript:S1128"(Remove this unused import of 'Backdrop'.(ÇŸ¦µøÿÿÿÿ
+_javascript:S1854.">Remove this useless assignment to variable "menuCloseHandler".(¢ƒşÿÿÿÿ
+Ejavascript:S1128"*Remove this unused import of 'useContext'.(œ´ØK
+Bjavascript:S1128"&Remove this unused import of 'Button'.( «´‡
+Cjavascript:S1128"(Remove this unused import of 'MenuItem'.(Úè¡
+Rjavascript:S1854"6Remove this useless assignment to variable "anchorEl".(öúò†
+Vjavascript:S1854"5Remove this useless assignment to variable "loading".(™æ¬èøÿÿÿÿ
+bjavascript:S1481."ARemove the declaration of the unused 'menuCloseHandler' variable.(¢ƒşÿÿÿÿ
+Yjavascript:S1481"8Remove the declaration of the unused 'loading' variable.(™æ¬èøÿÿÿÿ

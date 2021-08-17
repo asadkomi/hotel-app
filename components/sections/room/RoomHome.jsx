@@ -35,6 +35,10 @@ const RoomHome = () => {
               <Typography>No Room found</Typography>
             </div>
           ) : (
+<<<<<<< HEAD
+=======
+            rooms &&
+>>>>>>> stripe payment gateways fixed
             rooms.map((room) => <RoomItem key={room._id} room={room} />)
           )}
         </div>
