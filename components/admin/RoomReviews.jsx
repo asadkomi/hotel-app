@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import {
   getRoomReviews,
   deleteReview,
   clearErrors,
-} from "../../redux/actions/reviewActions.jsx";
-import { DELETE_REVIEW_RESET } from "../../redux/types/reviewTypes.jsx";
-import styles from "../../styles/style.jsx";
+} from "../../redux/actions/reviewActions";
+import { DELETE_REVIEW_RESET } from "../../redux/types/reviewTypes";
+import styles from "../../styles/style";
 import {
   CircularProgress,
   Grid,
@@ -25,12 +24,13 @@ import {
   Divider,
 } from "@material-ui/core";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
+import { useSnackbar } from "notistack";
 
 export default function RoomReviews() {
   const style = styles();
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const { enqueueSnackbar } = useSnackbar();
   const [roomId, setRoomId] = useState("");
 
   const { loading, error, reviews } = useSelector((state) => state.roomReviews);
@@ -45,19 +45,19 @@ export default function RoomReviews() {
     setRoomId(id);
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.error(deleteError);
+      enqueueSnackbar(deleteError, { variant: "error" });
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
       dispatch({ type: DELETE_REVIEW_RESET });
     }
-  }, [dispatch, roomId, error, deleteError, isDeleted]);
+  }, [dispatch, roomId, error, deleteError, isDeleted, enqueueSnackbar, id]);
 
   const deleteReviewHandler = (id) => {
     dispatch(deleteReview(id, roomId));

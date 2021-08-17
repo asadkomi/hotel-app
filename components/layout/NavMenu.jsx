@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +7,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { Button, Menu, MenuItem } from "@material-ui/core";
-import useStyle from "../../styles/style.jsx";
-import { loadUser } from "../../redux/actions/userActions.jsx";
+import { loadUser } from "../../redux/actions/userActions";
+import useStyle from "../../styles/style";
 
 export default function NavMenu() {
   const style = useStyle();
@@ -45,10 +45,9 @@ export default function NavMenu() {
         {user ? (
           <>
             <Button
-              className={style.navbarButton}
+              style={{ color: "#fff", textTransform: "none" }}
               aria-controls="simple-menu"
               aria-haspopup="true"
-
               onClick={loginClickHandler}
             >
               <AccountCircleIcon />
@@ -94,7 +93,9 @@ export default function NavMenu() {
         ) : (
           !loading && (
             <NextLink href="/login" passHref>
-              <Button className={style.navbarButton}>Login</Button>
+              <Button style={{ color: "#fff", textTransform: "none" }}>
+                Login
+              </Button>
             </NextLink>
           )
         )}

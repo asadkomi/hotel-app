@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import NextLink from "next/link";
 import { toast } from "react-toastify";
 import { getDashboard } from "../../redux/actions/dashboardActions.jsx";
-
-import styles from "../../styles/style.jsx";
 import { Bar } from "react-chartjs-2";
 import {
   CircularProgress,
@@ -19,12 +17,13 @@ import {
   CardActions,
   Divider,
 } from "@material-ui/core";
+import styles from "../../styles/style.jsx";
+import { useSnackbar } from "notistack";
 
 export default function Dashboard() {
   const style = styles();
   const dispatch = useDispatch();
-  const router = useRouter();
-
+  const { enqueueSnackbar } = useSnackbar();
   const {
     loading,
     error,
@@ -39,10 +38,10 @@ export default function Dashboard() {
     dispatch(getDashboard());
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
-  }, [dispatch]);
+  }, [dispatch, error, enqueueSnackbar]);
 
   return (
     <div className={style.dashboardSection}>

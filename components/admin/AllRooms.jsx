@@ -2,19 +2,15 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import NextLink from "next/link";
-import { toast } from "react-toastify";
-import { getAdminRooms, deleteRoom } from "../../redux/actions/roomActions.jsx";
-import { DELETE_ROOM_RESET } from "../../redux/types/roomTypes.jsx";
-import styles from "../../styles/style.jsx";
+import { useSnackbar } from "notistack";
+
 import {
   CircularProgress,
   Grid,
   List,
   ListItem,
   Typography,
-  Card,
   Button,
-  ListItemText,
   TableContainer,
   Table,
   TableHead,
@@ -29,11 +25,15 @@ import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import AddIcon from "@material-ui/icons/Add";
 
+import { getAdminRooms, deleteRoom } from "../../redux/actions/roomActions.jsx";
+import { DELETE_ROOM_RESET } from "../../redux/types/roomTypes.jsx";
+import styles from "../../styles/style.jsx";
+
 export default function AllRooms() {
   const style = styles();
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const { enqueueSnackbar } = useSnackbar();
   const { loading, error, rooms } = useSelector((state) => state.allRooms);
   const { error: deleteError, isDeleted } = useSelector((state) => state.room);
 
@@ -41,12 +41,12 @@ export default function AllRooms() {
     dispatch(getAdminRooms());
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.erroe(deleteError);
+      enqueueSnackbar(deleteError, { variant: "error" });
       dispatch(clearErrors());
     }
 
@@ -54,7 +54,7 @@ export default function AllRooms() {
       router.push("/admin/rooms");
       dispatch({ type: DELETE_ROOM_RESET });
     }
-  }, [dispatch, deleteError, isDeleted]);
+  }, [dispatch, deleteError, isDeleted, enqueueSnackbar, error, router]);
 
   const deleteRoomHandler = (id) => {
     dispatch(deleteRoom(id));
@@ -174,7 +174,5 @@ export default function AllRooms() {
         </Grid>
       </Grid>
     </div>
-    //   </div>
-    // </main>
   );
 }

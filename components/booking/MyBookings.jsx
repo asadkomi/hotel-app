@@ -1,16 +1,11 @@
-import axios from "axios";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import NextLink from "next/link";
-import React, { useEffect, useContext, useReducer } from "react";
-import MoreSharpIcon from "@material-ui/icons/MoreSharp";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors } from "../../redux/actions/bookingActions.jsx";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import easyinvoice from "easyinvoice";
 import {
-  CircularProgress,
   Grid,
   List,
   ListItem,
@@ -31,17 +26,16 @@ import styles from "../../styles/style.jsx";
 
 export default function MyBookings() {
   const style = styles();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { bookings, error } = useSelector((state) => state.bookings);
 
   useEffect(() => {
-    closeSnackbar();
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors);
     }
-  }, [dispatch]);
+  }, [dispatch, enqueueSnackbar, error]);
 
   const downloadInvoice = async (booking) => {
     const data = {
@@ -133,9 +127,6 @@ export default function MyBookings() {
                       {bookings.map((booking) => (
                         <TableRow key={booking._id}>
                           <TableCell>{booking._id.substring(20, 24)}</TableCell>
-                          {/* <TableCell>
-                            {booking.user ? booking.user.name : "DELETED USER"}
-                          </TableCell> */}
                           <TableCell>{booking.checkInDate}</TableCell>
                           <TableCell>{booking.checkOutDate}</TableCell>
                           <TableCell>{booking.amountPaid}</TableCell>

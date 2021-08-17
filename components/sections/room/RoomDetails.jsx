@@ -3,48 +3,43 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { toast } from "react-toastify";
-import { clearErrors } from "../../../redux/actions/roomActions.jsx";
-// import { Carousel } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useSnackbar } from "notistack";
-import RoomAmenities from "./RoomAmenities.jsx";
-import { Button } from "@material-ui/core";
-import "react-datepicker/dist/react-datepicker.css";
+import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
+import { Typography, Button, Grid, Card } from "@material-ui/core";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import { clearErrors } from "../../../redux/actions/roomActions";
+import RoomAmenities from "./RoomAmenities";
 import {
   checkBooking,
   getBookedDates,
-} from "../../../redux/actions/bookingActions.jsx";
-import { CHECK_BOOKING_RESET } from "../../../redux/types/bookingTypes.jsx";
+} from "../../../redux/actions/bookingActions";
+import { CHECK_BOOKING_RESET } from "../../../redux/types/bookingTypes";
 import getStripe from "../../../utitlies/getStripe";
-import Review from "../../review/Review.jsx";
-import ListReviews from "../../review/ListReviews.jsx";
-import { Typography } from "@material-ui/core";
+import Review from "../../review/Review";
+import ListReviews from "../../review/ListReviews";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import styles from "../../../styles/style.jsx";
-import { Grid, Card } from "@material-ui/core";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "../../../styles/style";
 
 const RoomDetails = () => {
   const style = styles();
   const router = useRouter();
   const dispatch = useDispatch();
-
   const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
   const [daysOfStay, setDaysOfStay] = useState();
   const [paymentLoading, setPaymentLoading] = useState(false);
-
   const { room, error } = useSelector((state) => state.roomDetails);
   const { user } = useSelector((state) => state.loadedUser);
   const { dates } = useSelector((state) => state.bookedDates);
-
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { id } = router.query;
   const { available, loading: bookingLoading } = useSelector(
     (state) => state.checkBooking
   );
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const excludedDates = [];
   dates.forEach((date) => {
@@ -67,36 +62,6 @@ const RoomDetails = () => {
     }
   };
 
-  const { id } = router.query;
-
-  const newBookingHandler = async () => {
-    const bookingData = {
-      room: router.query.id,
-      checkInDate,
-      checkOutDate,
-      daysOfStay,
-      amountPaid: 90,
-      paymentInfo: {
-        id: "STRIPE_PAYMENT_ID",
-        status: "STRIPE_PAYMENT_STATUS",
-      },
-    };
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post("/api/bookings", bookingData, config);
-
-      console.log(data);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
   const bookRoom = async (id, price) => {
     closeSnackbar();
     setPaymentLoading(true);
@@ -112,22 +77,22 @@ const RoomDetails = () => {
       setPaymentLoading(false);
     } catch (error) {
       setPaymentLoading(false);
-
-      toast.error(error.message);
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 
   useEffect(() => {
     dispatch(getBookedDates(id));
-    toast.error(error);
-    // enqueueSnackbar(error, { variant: "error" });
-    dispatch(clearErrors());
+
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
+      dispatch(clearErrors());
+    }
 
     return () => {
       dispatch({ type: CHECK_BOOKING_RESET });
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, error, enqueueSnackbar]);
   return (
     <>
       <Head>
@@ -167,12 +132,7 @@ const RoomDetails = () => {
                 {room.images &&
                   room.images.map((image) => (
                     <div key={image._id}>
-                      <img
-                        // className="d-block m-auto"
-                        src={image.url}
-                        alt={room.name}
-                        layout="cover"
-                      />
+                      <img src={image.url} alt={room.name} layout="cover" />
                     </div>
                   ))}
               </Carousel>
@@ -208,7 +168,6 @@ const RoomDetails = () => {
                   Pick Check In & Check Out Date
                 </Typography>
                 <DatePicker
-                  // color="#972479"
                   style={{ color: "#972479" }}
                   className="w-100 mb-3 "
                   selected={checkInDate}

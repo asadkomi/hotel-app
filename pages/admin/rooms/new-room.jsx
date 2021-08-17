@@ -1,8 +1,6 @@
 import React from "react";
 import { getSession } from "next-auth/client";
-
 import Layout from "../../../components/layout/Layout.jsx";
-
 import NewRoom from "../../../components/admin/NewRoom";
 import MiniDrawer from "../../../components/layout/MiniDrawer";
 

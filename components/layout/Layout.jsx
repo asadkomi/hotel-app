@@ -1,19 +1,9 @@
 import React from "react";
 import Head from "next/head";
-
-import {
-  Typography,
-  Container,
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
-} from "@material-ui/core";
-
-import Navbar from "./Navbar";
-
-import Footer from "./Footer";
-
+import { createTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
 import { ToastContainer } from "react-toastify";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../../styles/Layout.module.css";
 
@@ -36,7 +26,6 @@ const Layout = ({ children, title = "Home | Hotels Co." }) => {
       },
     },
     palette: {
-      // type: darkMode ? "dark" : "light",
       primary: {
         main: "#982479",
       },

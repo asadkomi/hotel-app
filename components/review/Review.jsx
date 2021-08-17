@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import {
   newReview,
   checkReviewAvailability,
   clearErrors,
 } from "../../redux/actions/reviewActions.jsx";
 import { NEW_REVIEW_RESET } from "../../redux/types/reviewTypes.jsx";
-import { useSnackbar } from "notistack";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
 import styles from "../../styles/style.jsx";
-
-import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 
 const Review = () => {
   const style = styles();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { error, success } = useSelector((state) => state.newReview);
+  const { reviewAvailable } = useSelector((state) => state.checkReview);
+  const { id } = router.query;
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,34 +37,22 @@ const Review = () => {
     setOpen(false);
   };
 
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const { error, success } = useSelector((state) => state.newReview);
-  const { reviewAvailable } = useSelector((state) => state.checkReview);
-
-  const { id } = router.query;
-
   useEffect(() => {
     if (id !== undefined) {
       dispatch(checkReviewAvailability(id));
     }
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "success" });
       dispatch(clearErrors());
     }
 
     if (success) {
       enqueueSnackbar("Review is posted.", { variant: "success" });
       dispatch({ type: NEW_REVIEW_RESET });
-
       router.push(`/room/${id}`);
     }
-  }, [dispatch, success, error, id]);
+  }, [dispatch, success, error, id, enqueueSnackbar, router]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -124,7 +117,6 @@ const Review = () => {
 
               <div className="pt-3">
                 <Button
-                  // className="btn  float-right review-btn px-4 text-white"
                   color="primary"
                   variant="contained"
                   onClick={submitHandler}

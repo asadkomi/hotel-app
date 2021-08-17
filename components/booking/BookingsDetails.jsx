@@ -1,28 +1,26 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-
-import { clearErrors } from "../../redux/actions/bookingActions.jsx";
+import { useSnackbar } from "notistack";
 import { Card } from "@material-ui/core";
-import styles from "../../styles/style.jsx";
+import { clearErrors } from "../../redux/actions/bookingActions";
+import styles from "../../styles/style";
 
 const BookingDetails = () => {
   const style = styles();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { booking, error } = useSelector((state) => state.bookingDetails);
   const { user } = useSelector((state) => state.loadedUser);
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(deleteError, { variant: "error" });
       dispatch(clearErrors());
     }
-  }, [dispatch, booking]);
-
+  }, [dispatch, booking, enqueueSnackbar, error]);
 
   const isPaid =
     booking.paymentInfo && booking.paymentInfo.status === "paid" ? true : false;

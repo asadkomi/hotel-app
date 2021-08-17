@@ -60,14 +60,6 @@ const useStyle = makeStyles((theme) => ({
   card: {
     width: "100%",
     maxWidth: 500,
-    // margin: "0 auto",
-    // height: 400,
-
-    // marginTop: 150,
-  },
-  navbarButton: {
-    color: "#fff",
-    textTransform: "initial",
   },
 
   transparentBg: {
@@ -86,7 +78,6 @@ const useStyle = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    // border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 2, 3),
     width: 350,

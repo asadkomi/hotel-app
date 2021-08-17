@@ -19,7 +19,6 @@ const getAllRooms = catchAsyncErrors(async (req, res, next) => {
 
   utilities.pagination(resultPerPage);
   rooms = await utilities.query;
-  // const rooms = await Room.find();
 
   res.status(200).json({
     success: true,
@@ -86,7 +85,6 @@ const updateRoom = catchAsyncErrors(async (req, res) => {
   }
 
   if (req.body.images) {
-    // Delete images associated with the room
     for (let i = 0; i < room.images.length; i++) {
       await cloudinary.v2.uploader.destroy(room.images[i]);
     }

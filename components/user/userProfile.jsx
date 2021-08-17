@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import { toast } from "react-toastify";
-// import ButtonLoader from "../layout/ButtonLoader";
-// import Loader from "../layout/Loader";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile, clearErrors } from "../../redux/actions/userActions";
@@ -40,12 +37,9 @@ const Profile = () => {
     password: "",
   });
 
-  const { name, email, password } = user;
-
   const { user: loadedUser, loading } = useSelector(
     (state) => state.loadedUser
   );
-  //   console.log(loadedUser);
   const {
     error,
     isUpdated,
@@ -54,18 +48,12 @@ const Profile = () => {
 
   useEffect(() => {
     if (loadedUser) {
-      // setUser({
-      //   name: loadedUser.name,
-      //   email: loadedUser.email,
-      // });
       setValue("name", loadedUser.name);
       setValue("email", loadedUser.email);
-
-      //   setAvatarPreview(loadedUser.avatar.url);
     }
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
@@ -73,10 +61,17 @@ const Profile = () => {
       router.push("/");
       dispatch({ type: UPDATE_PROFILE_RESET });
     }
-  }, [dispatch, isUpdated, error, loadedUser]);
+  }, [
+    dispatch,
+    isUpdated,
+    error,
+    loadedUser,
+    enqueueSnackbar,
+    router,
+    setValue,
+  ]);
 
   const submitHandler = ({ name, email, password, confirmPassword }) => {
-    // e.preventDefault();
     closeSnackbar();
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: "error" });
@@ -89,23 +84,6 @@ const Profile = () => {
     };
 
     dispatch(updateProfile(userData));
-  };
-
-  const onChange = (e) => {
-    if (e.target.name === "avatar") {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatar(reader.result);
-          setAvatarPreview(reader.result);
-        }
-      };
-
-      reader.readAsDataURL(e.target.files[0]);
-    } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
-    }
   };
 
   return (
@@ -135,11 +113,8 @@ const Profile = () => {
                   Profile
                 </Typography>
               </ListItem>
-              {/* <ListItem> */}
-              <form
-                onSubmit={handleSubmit(submitHandler)}
-                // className={style.form}
-              >
+
+              <form onSubmit={handleSubmit(submitHandler)}>
                 <List>
                   <ListItem>
                     <Controller
@@ -269,7 +244,6 @@ const Profile = () => {
                   </ListItem>
                 </List>
               </form>
-              {/* </ListItem> */}
             </List>
           </Card>
         </Grid>

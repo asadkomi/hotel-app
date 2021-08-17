@@ -1,6 +1,7 @@
 import React from "react";
 import Register from "../components/authentication/Register.jsx";
 import { getSession } from "next-auth/client";
+
 const register = () => {
   return (
     <>

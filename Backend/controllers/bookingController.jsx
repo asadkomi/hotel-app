@@ -1,8 +1,6 @@
 import Booking from "../models/booking";
-
 import ErrorHandler from "../errors/errorHandler";
 import catchAsyncErrors from "../middleWares/errors/catchAsyncErrors";
-
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 

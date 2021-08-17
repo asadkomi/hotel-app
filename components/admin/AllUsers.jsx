@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import NextLink from "next/link";
-import { toast } from "react-toastify";
 import { getAdminUsers, deleteUser } from "../../redux/actions/userActions.jsx";
 import { DELETE_USER_RESET } from "../../redux/types/userTypes.jsx";
 import styles from "../../styles/style.jsx";
@@ -23,12 +22,13 @@ import {
 } from "@material-ui/core";
 import EditSharpIcon from "@material-ui/icons/EditSharp";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
+import { useSnackbar } from 'notistack';
 
 export default function AllUsers() {
   const style = styles();
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const { enqueueSnackbar} = useSnackbar()
   const { loading, error, users } = useSelector((state) => state.allUsers);
   const { error: deleteError, isDeleted } = useSelector((state) => state.user);
 
@@ -36,12 +36,14 @@ export default function AllUsers() {
     dispatch(getAdminUsers());
 
     if (error) {
-      toast.error(error);
+
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
     if (deleteError) {
-      toast.erroe(deleteError);
+
+      enqueueSnackbar(deleteError, { variant: "error" });
       dispatch(clearErrors());
     }
 
@@ -49,7 +51,7 @@ export default function AllUsers() {
       router.push("/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
-  }, [dispatch, deleteError, isDeleted]);
+  }, [dispatch, deleteError, isDeleted, router, error,enqueueSnackbar]);
 
   const deleteUserHandler = (id) => {
     dispatch(deleteUser(id));

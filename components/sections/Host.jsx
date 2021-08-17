@@ -30,9 +30,7 @@ const Host = () => {
               </Button>
             </div>
           </div>
-          <div className="col-md">
-            {/* <img src="/images/hookah-bar.svg" className="img-fluid" alt="" /> */}
-          </div>
+          <div className="col-md"></div>
         </div>
       </div>
     </section>

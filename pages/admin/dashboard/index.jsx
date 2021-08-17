@@ -1,7 +1,5 @@
 import React from "react";
 import { getSession } from "next-auth/client";
-
-import Layout from "../../../components/layout/Layout.jsx";
 import Dashboard from "../../../components/admin/Dashboard";
 import MiniDrawer from "../../../components/layout/MiniDrawer";
 

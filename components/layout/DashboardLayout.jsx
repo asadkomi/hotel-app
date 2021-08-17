@@ -1,22 +1,10 @@
 import React from "react";
 import Head from "next/head";
-
-import {
-  Typography,
-  Container,
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
-} from "@material-ui/core";
-
-import Navbar from "./Navbar";
-
-import Footer from "./Footer";
-
-import { ToastContainer } from "react-toastify";
+import { createTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../../styles/Layout.module.css";
 import MiniDrawer from "./MiniDrawer";
+import Footer from "./Footer";
 
 const DashboardLayout = ({ children, title = "Home | Hotels Co." }) => {
   const theme = createTheme({
@@ -36,7 +24,6 @@ const DashboardLayout = ({ children, title = "Home | Hotels Co." }) => {
       },
     },
     palette: {
-      // type: darkMode ? "dark" : "light",
       primary: {
         main: "#982479",
       },
@@ -58,9 +45,7 @@ const DashboardLayout = ({ children, title = "Home | Hotels Co." }) => {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {/* <Navbar /> */}
           <MiniDrawer />
-          <ToastContainer position="bottom-right" />
           {children}
           <Footer />
         </ThemeProvider>

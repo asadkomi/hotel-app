@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import styles from "../../styles/style.jsx";
+import styles from "../../styles/style";
 
 const NotFound = () => {
   const style = styles();

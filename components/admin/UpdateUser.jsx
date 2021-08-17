@@ -1,10 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
-import { toast } from "react-toastify";
-// import ButtonLoader from "../layout/ButtonLoader";
-// import Loader from "../layout/Loader";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,9 +15,7 @@ import {
   List,
   ListItem,
   Typography,
-  Card,
   Button,
-  ListItemText,
   TextField,
   MenuItem,
   Divider,
@@ -31,7 +25,7 @@ import styles from "../../styles/style.jsx";
 
 const UpdateUser = () => {
   const style = styles();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const router = useRouter();
   const {
@@ -42,10 +36,9 @@ const UpdateUser = () => {
   } = useForm();
 
   const { user, loading } = useSelector((state) => state.userDetails);
-
   const { error, isUpdated } = useSelector((state) => state.user);
-
   const userId = router.query.id;
+
   useEffect(() => {
     if (user && user._id !== userId) {
       dispatch(getUserDetails(userId));
@@ -56,7 +49,7 @@ const UpdateUser = () => {
     }
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
@@ -64,11 +57,18 @@ const UpdateUser = () => {
       router.push("/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, isUpdated, error, userId, user]);
+  }, [
+    dispatch,
+    isUpdated,
+    error,
+    userId,
+    user,
+    router,
+    setValue,
+    enqueueSnackbar,
+  ]);
 
   const submitHandler = ({ name, email, role }) => {
-    closeSnackbar();
-
     const userData = {
       name,
       email,
@@ -76,23 +76,6 @@ const UpdateUser = () => {
     };
 
     dispatch(updateUser(user._id, userData));
-  };
-
-  const onChange = (e) => {
-    if (e.target.name === "avatar") {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatar(reader.result);
-          setAvatarPreview(reader.result);
-        }
-      };
-
-      reader.readAsDataURL(e.target.files[0]);
-    } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
-    }
   };
 
   return (

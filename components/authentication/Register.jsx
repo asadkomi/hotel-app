@@ -20,7 +20,7 @@ import { registerUser, clearErrors } from "../../redux/actions/userActions.jsx";
 
 const Register = () => {
   const style = useStyle();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const {
     handleSubmit,
     control,
@@ -32,7 +32,6 @@ const Register = () => {
 
   const { success, error, loading } = useSelector((state) => state.register);
   useEffect(() => {
-    closeSnackbar();
     if (success) {
       router.push("/login");
     }
@@ -43,7 +42,7 @@ const Register = () => {
     }
   }, [dispatch, success, error]);
 
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+  const submitHandler = async ({ name, email, password }) => {
     const userInfo = {
       name,
       email,

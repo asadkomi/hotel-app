@@ -1,9 +1,6 @@
-import axios from "axios";
-import dynamic from "next/dynamic";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import NextLink from "next/link";
-import React, { useEffect, useContext, useReducer } from "react";
-import MoreSharpIcon from "@material-ui/icons/MoreSharp";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAdminBookings,
@@ -20,9 +17,7 @@ import {
   List,
   ListItem,
   Typography,
-  Card,
   Button,
-  ListItemText,
   TableContainer,
   Table,
   TableHead,
@@ -46,7 +41,6 @@ export default function AllBookings() {
   );
 
   useEffect(() => {
-    closeSnackbar();
     dispatch(getAdminBookings());
     if (error) {
       enqueueSnackbar(error, { variant: "error" });
@@ -60,7 +54,7 @@ export default function AllBookings() {
       router.push("/admin/bookings");
       dispatch({ type: DELETE_BOOKING_RESET });
     }
-  }, [dispatch, deleteError, isDeleted]);
+  }, [dispatch, deleteError, isDeleted, enqueueSnackbar, error, router]);
 
   const deleteBookingHandler = (id) => {
     dispatch(deleteBooking(id));

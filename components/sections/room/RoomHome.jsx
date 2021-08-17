@@ -3,23 +3,26 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { clearErrors } from "../../../redux/actions/roomActions.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import RoomItem from "./RoomItem.jsx";
-import { toast } from "react-toastify";
 import { Typography } from "@material-ui/core";
+import { useSnackbar } from "notistack";
+import RoomItem from "./RoomItem.jsx";
 
 const RoomHome = () => {
-  const { rooms, error, resPerPage, roomsCount, filteredRoomCount } =
-    useSelector((state) => state.allRooms);
-
   const dispatch = useDispatch();
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { rooms, error, resPerPage, roomsCount, filteredRoomCount } =
+    useSelector((state) => state.allRooms);
 
   let { location } = router.query;
 
   useEffect(() => {
-    toast.error(error);
-    dispatch(clearErrors());
-  }, []);
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, enqueueSnackbar]);
 
   return (
     <section className="w-100">

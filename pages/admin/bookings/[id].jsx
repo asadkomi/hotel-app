@@ -1,12 +1,7 @@
 import React from "react";
 import { getSession } from "next-auth/client";
-
-import Layout from "../../../components/layout/Layout.jsx";
 import MiniDrawer from "../../../components/layout/MiniDrawer";
-import UpdateRoom from "../../../components/admin/UpdateRoom";
-
 import BookingsDetails from "../../../components/booking/BookingsDetails.jsx";
-
 import { getBookingDetails } from "../../../redux/actions/bookingActions.jsx";
 import { wrapper } from "../../../redux/store/store.jsx";
 

@@ -15,17 +15,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import NextLink from "next/link";
 import GroupIcon from "@material-ui/icons/Group";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import Dashboard from "../admin/Dashboard";
 import NavMenu from "./NavMenu.jsx";
 import useStyle from "../../styles/style.jsx";
-
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
@@ -72,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   divider: {
-    // Theme Color, or use css color in quote
     background: "#fff",
   },
 
@@ -99,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {

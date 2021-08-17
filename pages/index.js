@@ -1,5 +1,4 @@
 import Hero from "../components/sections/heroSection/Hero.jsx";
-
 import Layout from "../components/layout/Layout";
 import RoomHome from "../components/sections/room/RoomHome.jsx";
 import Host from "../components/sections/Host.jsx";
@@ -24,5 +23,3 @@ export const getServerSideProps = wrapper.getServerSideProps(
       );
     }
 );
-
-

@@ -1,19 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
-import { toast } from "react-toastify";
-// import ButtonLoader from "../layout/ButtonLoader";
-// import Loader from "../layout/Loader";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  newRoom,
   getRoomDetails,
   clearErrors,
   updateRoom,
 } from "../../redux/actions/roomActions";
-import { NEW_ROOM_RESET } from "../../redux/types/roomTypes.jsx";
 import { useSnackbar } from "notistack";
 import {
   Grid,
@@ -29,27 +23,15 @@ import {
   Divider,
   CircularProgress,
 } from "@material-ui/core";
-import styles from "../../styles/style.jsx";
-import { UPDATE_ROOM_RESET } from "../../redux/types/roomTypes.jsx";
+import styles from "../../styles/style";
+import { UPDATE_ROOM_RESET } from "../../redux/types/roomTypes";
 
 const UpdateRoom = () => {
   const style = styles();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { checked, setChecked } = useState(false);
-
-  const [tv, setTv] = useState(false);
-  const [wifi, setWifi] = useState(false);
-  const [conditioning, setConditioning] = useState(false);
-  const [heating, setHeating] = useState(false);
-  const [pets, setPets] = useState(false);
-
-  const handleChange = (event) => {
-    setValue(`event.target.name`, event.target.checked);
-  };
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
-
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -89,12 +71,12 @@ const UpdateRoom = () => {
     }
 
     if (error) {
-      toast.error(error);
+      enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
 
     if (roomDetailsError) {
-      toast.roomDetailsError(error);
+      enqueueSnackbar(roomDetailsError, { variant: "error" });
       dispatch(clearErrors());
     }
 
@@ -103,9 +85,17 @@ const UpdateRoom = () => {
       router.push("/admin/rooms");
       dispatch({ type: UPDATE_ROOM_RESET });
     }
-  }, [dispatch, error, roomDetailsError, isUpdated, room, id]);
-
-  //   };
+  }, [
+    dispatch,
+    error,
+    roomDetailsError,
+    isUpdated,
+    room,
+    id,
+    router,
+    setValue,
+    enqueueSnackbar,
+  ]);
 
   const submitHandler = ({
     name,
@@ -120,7 +110,6 @@ const UpdateRoom = () => {
     conditioning,
     pets,
     heating,
-    // images,
   }) => {
     closeSnackbar();
 
@@ -143,7 +132,6 @@ const UpdateRoom = () => {
     if (images.length === 0)
       return enqueueSnackbar("Please upload images", { variant: "error" });
 
-    console.log(roomData);
     dispatch(updateRoom(room._id, roomData));
   };
 
