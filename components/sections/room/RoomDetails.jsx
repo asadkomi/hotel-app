@@ -98,23 +98,23 @@ const RoomDetails = () => {
   };
 
   const bookRoom = async (id, price) => {
-    // closeSnackbar();
+    closeSnackbar();
     setPaymentLoading(true);
     const amount = price * daysOfStay;
 
     try {
       const link = `/api/checkout_session/${id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
       const { data } = await axios.get(link, { params: { amount } });
-      console.log("data ======================>", data);
+
       const stripe = await getStripe();
       stripe.redirectToCheckout({ sessionId: data.id });
 
       setPaymentLoading(false);
     } catch (error) {
       setPaymentLoading(false);
-      console.log("error=========>", error);
+
       toast.error(error.message);
-      // enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 
