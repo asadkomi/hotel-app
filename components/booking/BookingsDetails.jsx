@@ -23,7 +23,7 @@ const BookingDetails = () => {
     }
   }, [dispatch, booking]);
 
-  console.log("payment========>", booking);
+
   const isPaid =
     booking.paymentInfo && booking.paymentInfo.status === "paid" ? true : false;
 

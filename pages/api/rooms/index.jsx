@@ -9,9 +9,7 @@ import {
   isAuthenticatedUser,
   authorizeRoles,
 } from "../../../Backend/middleWares/auth.jsx";
-import { v2 as cloudinary } from "cloudinary";
 
-console.log("env ===============>", process.env.STRIPE_API_KEY);
 const handler = nextConnect({ onError });
 dbConnect();
 

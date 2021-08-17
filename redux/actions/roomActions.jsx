@@ -32,11 +32,9 @@ export const getRooms =
 
       let link = `${origin}/api/rooms?page=${currentPage}&location=${location}`;
 
-<<<<<<< HEAD
-      if (guests) link = link.concat(`&guestCapacity=${guests}`);
-=======
+
       if (guests) link = link.concat(`&guests=${guests}`);
->>>>>>> stripe payment gateways fixed
+
       if (category) link = link.concat(`&category=${category}`);
 
       const { data } = await axios.get(link);
@@ -48,11 +46,9 @@ export const getRooms =
     } catch (error) {
       dispatch({
         type: ALL_ROOMS_FAIL,
-<<<<<<< HEAD
-        payload: error.response.data.message,
-=======
+
         payload: "Fetching Fail ...",
->>>>>>> stripe payment gateways fixed
+
       });
     }
   };
